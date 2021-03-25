@@ -25,7 +25,9 @@ if __name__ == "__main__":
         print(ce)
         time.sleep(naptime)
 
-    naptime = 300
+    naptime = 120
+    flush_counter = (60*60) / naptime # flush every hour
+
     previous_obs_date = extract_date(result.json())
     schema = avro.schema.parse(open(f"../test_data/wunderground.avsc", "rb").read())
     writer = DataFileWriter(open(f"../test_data/{previous_obs_date.isoformat()}.avro", "ab"), DatumWriter(), schema)
@@ -35,13 +37,19 @@ if __name__ == "__main__":
     # while counter < 3:
         # todo: check for new api key
         # terminal output
+        
         temp = result.json()['observations'][0]['metric']['temp']
         humidity = result.json()['observations'][0]['humidity']
         pressure = result.json()['observations'][0]['metric']['pressure']
         print(result.json()['observations'][0]['obsTimeLocal'] + f" | temp = {temp:.2f}C | {humidity}% humidity | {pressure} hPa" )
  
         writer.append(result.json()['observations'][0])
- 
+        if flush_counter <= 0:
+            writer.flush()
+            flush_counter = (60*60) / naptime
+        else:
+            flush_counter -= 1
+
         time.sleep(naptime)
         try:
             result = requests.get(QUERY_CURRENT)

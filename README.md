@@ -2,13 +2,14 @@
 
 ## engine.py
 
-* retrieve data from API on timer
+* retrieve data from API on 2 minute timer
 * send data to google cloud storage
 
-## react webpage
+## flask webapp
 
-* retrieve most recent data from storage
+* gulch picture
+* retrieve most recent data
 * display most recent data nicely, maybe using a historical graph of temp and wind speed
 
-* allow users to access or download historical data
+* allow users to access historical data
 * allow user to update wunderground api key (necessary every six months)

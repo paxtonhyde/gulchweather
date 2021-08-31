@@ -1,13 +1,11 @@
-''' wrapper class for making wunderground api calls '''
+''' wrapper for making wunderground api calls '''
 import requests
 import time
 from datetime import date
 
 WUNDERGROUND_KEY = 'e8f9bc08a1154a23b9bc08a1158a2398'
 PWS = 'KNMTHORE3'
-UNITS = 'm'
-QUERY_CURRENT = "https://api.weather.com/v2/pws/observations/current?stationId={pws}&format=json&units={units}&apiKey={key}&numericPrecision=decimal"
-
+QUERY_CURRENT = f"https://api.weather.com/v2/pws/observations/current?stationId={PWS}&format=json&units={'m'}&apiKey={WUNDERGROUND_KEY}&numericPrecision=decimal"
 
 class wunderground():
 
